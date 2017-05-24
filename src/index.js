@@ -1,5 +1,5 @@
-var standardize = require('./util/standardize')
-var Client = require('./client')
+import standardize from './util/standardize'
+import Client from './client'
 
 if (!navigator) {
   throw new Error('Navigator is missing!')
@@ -12,4 +12,4 @@ if (!navigator) {
   }(navigator))
 }
 
-module.exports = Client
+export default Client
