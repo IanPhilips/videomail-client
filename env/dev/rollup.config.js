@@ -1,4 +1,4 @@
-import babel from 'rollup-plugin-babel'
+import buble from 'rollup-plugin-buble'
 import json from 'rollup-plugin-json'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
@@ -9,6 +9,7 @@ import filesize from 'rollup-plugin-filesize'
 import progress from 'rollup-plugin-progress'
 import globals from 'rollup-plugin-node-globals'
 import readPkg from 'read-pkg'
+import camelcase from 'camelcase'
 
 const packageInfo = readPkg.sync()
 const moduleName = packageInfo.name
@@ -21,15 +22,7 @@ export default {
     progress(),
     stylusCssModules({output: false}),
     json({preferConst: true}),
-    babel({
-      babelrc: false,
-      exclude: [
-        'node_modules/**',
-        'src/styles/**'
-      ],
-      presets: [['es2015', {modules: false}]],
-      plugins: ['external-helpers']
-    }),
+    buble(),
     builtins(),
     resolve({
       jsnext: true,
@@ -43,7 +36,7 @@ export default {
     globals(),
     filesize({showGzippedSize: false})
   ],
-  moduleName: moduleName,
+  moduleName: camelcase(moduleName),
   dest: `dist/${moduleName}.js`,
   sourceMap: 'inline'
 }
