@@ -6,6 +6,8 @@ import config from './../dev/rollup.config'
 config.entry = './test/index.js'
 config.moduleName = 'videomail-client-test'
 
+config.context = process // not sure if that's the right one??
+
 // removes the progress plugin which does not work when piped, see
 // https://github.com/jkuri/rollup-plugin-progress/issues/8
 delete config.plugins[1]
